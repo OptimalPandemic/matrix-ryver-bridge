@@ -36,13 +36,18 @@ class RyverHandler {
 
 	// Get user data from teams we care about
 	for (team in this._bridged_teams) {
+	    // Create room for team if it doesn't exits
+	    bridge.getIntent().createRoom({
+		room_alias_name: "ryver_" + team.id
+	    });
 	    team.users = [];
 	    var users = this.getRyverData("/api/1/odata.svc/workrooms(" + team + ")/members?$expand=member");
 	    for (user in users) {
 		this._all_users.push(user.member);
 		team.users.push(user.member.id);
+		bridge.getIntent(this.user('ryver_userid', user.member.id).matrix_localpart).join("ryver_"+team.id)
 	    }
-	    team.users = dedup(team.users);
+	    team.users = dedup(team.users);	    
 	}
 	this._all_users = dedup(this._all_users);
 
@@ -144,7 +149,7 @@ http.createServer((req, resp) => {
 	if (params.type == "chat_created") {
 	    var un = ryver.user('displayName', params.user.__descriptor).username;
 	    var intent = bridge.getIntent("@ryver_" + un + ":" + preconfig.domain);
-	    intent.sendText("@ryver_" + params.data.channel.id, params.data.entity.message);
+	    intent.sendMessage("@ryver_" + params.data.channel.id, params.data.entity.message);
 	}
 	resp.writeHead(200, {"Content-Type": "application/json"});
 	resp.write(JSON.stringify({}));
