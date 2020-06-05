@@ -1,4 +1,4 @@
-# Matrix <--> Ryver Bridge
+## Matrix <--> Ryver Bridge
 
 This is a [Ryver](https://ryver.com/) bridge for Matrix using the Application Services (AS) API via the [matrix-appservice-bridge](https://github.com/matrix-org/matrix-appservice-bridge) library.
 This bridge will pass all Ryver messages for pre-configured Matrix users to corresponding Matrix rooms, and vice-versa. This is a double-puppeting bridge, meaning users see all messages as sent by the correct native user rather than a bot. The Matrix users to be bridged must have pre-existing accounts in the Ryver org.
