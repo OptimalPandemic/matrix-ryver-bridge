@@ -9,7 +9,7 @@
   "author": "Austin Jones",
   "license": "Apache-2.0",
   "dependencies": {
-    "matrix-appservice-bridge": "^1.12.2",
+    "matrix-appservice-bridge": "^2.6.1",
     "request": "^2.88.2"
   }
 }
